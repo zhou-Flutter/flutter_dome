@@ -1,6 +1,10 @@
 # a_red_book
 
 Flutter 实战小红书APP
+
+有问题随时咨询我
+QQ:824522911
+wx:zxj824522911
 ## Getting Started
 
 This project is a starting point for a Flutter application.
