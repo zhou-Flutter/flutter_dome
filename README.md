@@ -1,7 +1,6 @@
 # a_red_book
 
-A new Flutter project.
-
+Flutter 实战小红书APP
 ## Getting Started
 
 This project is a starting point for a Flutter application.
