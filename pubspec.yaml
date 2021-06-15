@@ -1,0 +1,127 @@
+name: a_red_book
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # 状态管理
+  get: ^4.1.4
+  # 网络请求
+  dio: ^4.0.0
+  # 加载框
+  flutter_easyloading: ^3.0.0
+  # 土司
+  fluttertoast: ^8.0.6
+  # 屏幕适配
+  flutter_screenutil: ^5.0.0+2
+  # 缓存
+  shared_preferences: ^2.0.6
+  # 视频播放
+  video_player: ^2.1.4
+  # 底部部选项卡
+  persistent_bottom_nav_bar: ^4.0.2
+  # 喜欢按钮
+  like_button: ^2.0.2
+  # 缓存图片
+  transparent_image: ^2.0.0
+  # 瀑布流布局
+  waterfall_flow: ^3.0.1
+  # 超级提示工具，可以用到长按视频弹出操作框
+  super_tooltip: ^1.0.1
+  # easy_popup 
+  easy_popup: ^1.0.0
+  extended_sliver: ^2.0.0
+  # 进度条
+  audio_video_progress_bar: ^0.4.0
+  # 轮播图
+  flutter_swiper: ^1.1.6
+  # 图片视频选择
+  images_picker: ^1.2.4
+  # tabbar 气泡样式
+  bubble_tab_indicator: ^0.1.6
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - images/
+    - images/common_logo.png
+    - images/b2.mp4
+    - images/xhs_1623045190083.mp4
+    - images/xhs_1623045207024.mp4
+    - images/login_icon_welcome_phone_v3.png
+    - images/login_icon_welcome_qq_v3.png
+    - images/login_icon_welcome_weibo_v3.png
+    - images/login_icon_welcome_weixin_v3.png
+    - images/im_chat_comment_at_ic_v2.png
+    - images/im_chat_fans_ic_v2.png
+    - images/im_chat_like_collect_ic_v2.png
+    - images/im_chat_push_notification_ic_v2.png
+    - images/im_chat_sys_notification_ic_v2.png
+    - images/matrix_profile_head_bg_default.webp
+    - images/hey_detail_msg_send.png
+    - images/hey_ic_home_menu.png
+    - images/red_heart.webp
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
