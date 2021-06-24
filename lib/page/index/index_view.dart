@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-01 11:32:32
- * @LastEditTime: 2021-06-11 09:41:04
+ * @LastEditTime: 2021-06-16 13:42:29
  * @Description:  
  */
 import 'package:a_red_book/page/home/home_view.dart';
@@ -131,9 +131,10 @@ class _IndexPageState extends State<IndexPage> {
           child: Text(
             "消息",
             style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
-                fontSize: ScreenUtil().setSp(27)),
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
+              fontSize: ScreenUtil().setSp(27),
+            ),
           ),
         ),
       ),

@@ -1,35 +1,31 @@
 /*
  * @Author: zxj
- * @Date: 2021-06-02 13:56:48
- * @LastEditTime: 2021-06-16 09:22:37
- * @Description:  推荐
- * 
+ * @Date: 2021-06-15 17:01:09
+ * @LastEditTime: 2021-06-16 09:11:26
+ * @Description: 
  */
-import 'package:a_red_book/config/data/recommendList.dart';
+
+import 'package:a_red_book/page/shop/shop_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'recommend_logic.dart';
 import 'package:like_button/like_button.dart';
-
 import 'package:transparent_image/transparent_image.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
-class RecommendPage extends StatelessWidget {
-  final RecommendLogic logic = Get.put(RecommendLogic());
-
+class Goods extends StatelessWidget {
+  final ShopLogic shopLogic = Get.put(ShopLogic());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RecommendLogic>(
-      builder: (logic) => Container(
+    return GetBuilder<ShopLogic>(
+      builder: (shopLogic) => Container(
         child: WaterfallFlow.builder(
-          padding: EdgeInsets.only(top: 0),
-          itemCount: logic.recommendList.length,
+          itemCount: shopLogic.recommendList.length,
           gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
           itemBuilder: (context, index) {
-            return videoLayout(logic.recommendList[index]);
+            return videoLayout(shopLogic.recommendList[index]);
           },
         ),
       ),
@@ -39,7 +35,7 @@ class RecommendPage extends StatelessWidget {
   Widget videoLayout(item) {
     return InkWell(
       onTap: () {
-        logic.tocontentPage(item["ismp4"]);
+        // logic.tocontentPage(item["ismp4"]);
       },
       child: Container(
         width: ScreenUtil().setWidth(367),

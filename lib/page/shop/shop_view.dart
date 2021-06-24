@@ -1,9 +1,14 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-04 14:03:36
- * @LastEditTime: 2021-06-15 10:06:36
+ * @LastEditTime: 2021-06-16 09:32:35
  * @Description: 
  */
+import 'package:a_red_book/page/shop/components/goods.dart';
+import 'package:a_red_book/page/shop/components/shopHead.dart';
+import 'package:a_red_book/page/shop/components/shopItem.dart';
+import 'package:a_red_book/page/shop/components/shopItem1.dart';
+import 'package:a_red_book/page/shop/components/shopSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -69,7 +74,7 @@ class _ShopPageState extends State<ShopPage>
         padding: EdgeInsets.only(top: 30),
         child: Column(
           children: [
-            shopSearch(),
+            ShopSearch(),
             Container(
               child: Expanded(
                 child: NestedScrollView(
@@ -93,9 +98,9 @@ class _ShopPageState extends State<ShopPage>
                               padding: EdgeInsets.all(0),
                               physics: const NeverScrollableScrollPhysics(),
                               children: <Widget>[
-                                shopHead(),
-                                shopItem(),
-                                shopItem1(),
+                                ShopHead(),
+                                ShopItem(),
+                                ShopItem1(),
                               ],
                             ),
                           ),
@@ -138,11 +143,11 @@ class _ShopPageState extends State<ShopPage>
                                 text: tabItem[e]["name"]);
                           }).toList(),
                         ),
-                      )
+                      ),
                     ];
                   },
                   body: TabBarView(controller: _tabController, children: [
-                    _buildListView("aaa:"),
+                    Goods(),
                     _buildListView("bbb:"),
                     _buildListView("ccc:"),
                     _buildListView("aaa:"),
@@ -171,248 +176,6 @@ class _ShopPageState extends State<ShopPage>
         return Container(
             color: Colors.white, child: ListTile(title: Text("$s第$index 个条目")));
       },
-    );
-  }
-
-  Widget shopItem1() {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: ScreenUtil().setHeight(500),
-              margin: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                border: Border.all(width: 1, color: Colors.red),
-                color: Colors.white,
-              ),
-              child: Text("直播分享会"),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: ScreenUtil().setHeight(240),
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(width: 1, color: Colors.red),
-                    color: Colors.white,
-                  ),
-                  child: Text("data"),
-                ),
-                Container(
-                  width: double.infinity,
-                  margin: EdgeInsets.all(5),
-                  height: ScreenUtil().setHeight(240),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(width: 1, color: Colors.red),
-                    color: Colors.white,
-                  ),
-                  child: Text("data"),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget shopItem() {
-    return Container(
-      padding: EdgeInsets.only(right: 10, left: 10),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.all(5),
-              height: ScreenUtil().setHeight(200),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                border: Border.all(width: 1, color: Colors.red),
-                color: Colors.white,
-              ),
-              child: Text("新人一元抢购"),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.all(5),
-              height: ScreenUtil().setHeight(200),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.red),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-              ),
-              child: Text("提前强会场"),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.all(5),
-              height: ScreenUtil().setHeight(200),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.red),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.white,
-              ),
-              child: Text("爆款分期免息"),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget shopHead() {
-    return Container(
-      color: Colors.blue,
-      padding: EdgeInsets.only(right: 10, left: 10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  height: ScreenUtil().setHeight(220),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Text("心动红包"),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  height: ScreenUtil().setHeight(220),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Text("小清单"),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  height: ScreenUtil().setHeight(200),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Text("大咖直播间"),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  height: ScreenUtil().setHeight(200),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Text("提前强会场"),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  height: ScreenUtil().setHeight(200),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Text("爆款分期免息"),
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  //头部搜索栏
-  Widget shopSearch() {
-    return Container(
-      padding: EdgeInsets.only(right: 15, left: 15),
-      color: Colors.white,
-      child: Row(
-        children: [
-          Container(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.post_add,
-                  color: Colors.black54,
-                  size: 23,
-                ),
-                Text(
-                  "订单",
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: ScreenUtil().setSp(20),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              width: ScreenUtil().setWidth(500),
-              padding: EdgeInsets.only(top: 3, left: 10, right: 10, bottom: 3),
-              margin: EdgeInsets.only(right: 15, left: 15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color(0x0f000000),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.search,
-                    size: 18,
-                    color: Colors.black26,
-                  ),
-                  Text(
-                    "大家都在搜，美妆天花板",
-                    style: TextStyle(color: Colors.black38),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.more_horiz,
-                  color: Colors.black54,
-                  size: 25,
-                ),
-                Text(
-                  "更多",
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: ScreenUtil().setSp(20),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-02 10:54:07
- * @LastEditTime: 2021-06-04 16:16:47
+ * @LastEditTime: 2021-06-16 10:07:59
  * @Description: 发现页
  */
 
@@ -82,21 +82,25 @@ class _FindPageState extends State<FindPage> with TickerProviderStateMixin {
                   ),
                 ),
                 Expanded(
-                    flex: 1,
-                    child: InkWell(
-                      onTap: () {
-                        EasyPopup.show(context, DropDownMenu(),
-                            offsetLT: Offset(
-                                0, MediaQuery.of(context).padding.top + 50));
-                      },
-                      child: Container(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Icon(
-                          Icons.expand_more,
-                          size: 25,
-                        ),
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
+                      EasyPopup.show(
+                        context,
+                        DropDownMenu(),
+                        offsetLT:
+                            Offset(0, MediaQuery.of(context).padding.top + 50),
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Icon(
+                        Icons.expand_more,
+                        size: 25,
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
