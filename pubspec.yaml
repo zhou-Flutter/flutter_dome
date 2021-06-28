@@ -58,6 +58,10 @@ dependencies:
   images_picker: ^1.2.4
   # tabbar 气泡样式
   bubble_tab_indicator: ^0.1.6
+  # 联动tabbar
+  extended_tabs: ^2.2.0
+  #下拉刷新
+  flutter_easyrefresh: ^2.2.1
 
 
   # The following adds the Cupertino Icons font to your application.

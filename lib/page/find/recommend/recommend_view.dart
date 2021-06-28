@@ -1,11 +1,17 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-02 13:56:48
- * @LastEditTime: 2021-06-16 09:22:37
+ * @LastEditTime: 2021-06-28 20:49:24
  * @Description:  推荐
  * 
  */
+import 'dart:ui';
+
+import 'package:a_red_book/config/components/note_item.dart';
 import 'package:a_red_book/config/data/recommendList.dart';
+import 'package:a_red_book/page/mycenter/components/drawerMenu.dart';
+import 'package:a_red_book/page/video/video_logic.dart';
+import 'package:a_red_book/page/video/video_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,120 +20,74 @@ import 'package:like_button/like_button.dart';
 
 import 'package:transparent_image/transparent_image.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class RecommendPage extends StatelessWidget {
   final RecommendLogic logic = Get.put(RecommendLogic());
+  final VideoLogic logicv = Get.put(VideoLogic());
+  var globalKey;
+  RecommendPage({this.globalKey});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RecommendLogic>(
-      builder: (logic) => Container(
-        child: WaterfallFlow.builder(
-          padding: EdgeInsets.only(top: 0),
-          itemCount: logic.recommendList.length,
-          gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (context, index) {
-            return videoLayout(logic.recommendList[index]);
-          },
+    return Scaffold(
+      body: EasyRefresh.custom(
+        header: MaterialHeader(),
+        footer: ClassicalFooter(
+          extent: 30,
+          showInfo: false,
+          safeArea: false,
+          textColor: Colors.white,
         ),
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 2), () {
+            logic.getRecommendList();
+          });
+        },
+        onLoad: () async {
+          logic.getaddRecommendList();
+        },
+        slivers: [
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Container(
+                  child: GetBuilder<RecommendLogic>(
+                    builder: (logic) => Container(
+                      child: WaterfallFlow.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.only(top: 0),
+                        itemCount: logic.recommendList.length,
+                        gridDelegate:
+                            SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                        ),
+                        itemBuilder: (context, index) {
+                          return videoLayout(logic.recommendList[index]);
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              },
+              childCount: 1,
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget videoLayout(item) {
-    return InkWell(
+    return NoteItem(
+      item: item,
       onTap: () {
-        logic.tocontentPage(item["ismp4"]);
+        // Scaffold.of(context).openEndDrawer();
+        logicv.getdt("1234");
+        globalKey.currentState.openEndDrawer();
+        // logic.tocontentPage(item["ismp4"]);
       },
-      child: Container(
-        width: ScreenUtil().setWidth(367),
-        margin: EdgeInsets.all(2),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(5))),
-        child: Column(
-          children: [
-            Container(
-              child: Stack(
-                children: [
-                  Container(
-                    height: ScreenUtil().setHeight(item["imgHight"]),
-                    width: ScreenUtil().setWidth(item["imgWidth"]),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6)),
-                      child: FadeInImage.memoryNetwork(
-                        placeholder: kTransparentImage,
-                        fit: BoxFit.cover,
-                        image: item["coverImg"],
-                      ),
-                    ),
-                  ),
-                  item["ismp4"] != true
-                      ? Text("")
-                      : Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Container(
-                            margin: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.black26,
-                            ),
-                            child: Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: Text(
-                item["name"],
-                style: TextStyle(
-                    fontSize: ScreenUtil().setSp(28),
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: Row(
-                children: [
-                  Icon(Icons.ac_unit),
-                  Text("${item["write"]}"),
-                  Spacer(),
-                  LikeButton(
-                    likeCount: int.parse(item["like"]),
-                    likeCountPadding: EdgeInsets.only(left: 0),
-                    likeBuilder: (bool) {
-                      if (bool) {
-                        return Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                          size: 22,
-                        );
-                      } else {
-                        return Icon(
-                          Icons.favorite_border,
-                          color: Colors.black26,
-                          size: 22,
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }

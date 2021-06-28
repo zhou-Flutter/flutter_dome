@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-05-31 15:41:00
- * @LastEditTime: 2021-06-11 14:54:23
+ * @LastEditTime: 2021-06-26 13:17:29
  * @Description: 路由配置
  */
 part of './app_pages.dart';
@@ -21,5 +21,7 @@ abstract class Routes {
   static const swiperContentPage = '/swiperContentPage'; //轮播图内容页面
 
   static const addNotePage = '/addNotePage'; //添加笔记页面
+
+  static const recordPage = '/recordPage'; //记录自己的日常页面
 
 }

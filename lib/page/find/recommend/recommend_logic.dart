@@ -1,10 +1,11 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-02 13:56:48
- * @LastEditTime: 2021-06-09 11:27:55
+ * @LastEditTime: 2021-06-28 20:40:16
  * @Description: 
  */
 import 'package:a_red_book/config/data/recommendList.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'recommend_state.dart';
@@ -23,6 +24,14 @@ class RecommendLogic extends GetxController {
   getRecommendList() async {
     await Future.delayed(Duration(seconds: 1));
     recommendList = listitem;
+    print("加载");
+    update();
+  }
+
+  //模拟网络获取数据
+  getaddRecommendList() async {
+    recommendList.addAll(listitem2);
+    print("加载");
     update();
   }
 

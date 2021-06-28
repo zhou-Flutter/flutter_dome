@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-04 14:15:44
- * @LastEditTime: 2021-06-10 16:12:59
+ * @LastEditTime: 2021-06-28 18:56:26
  * @Description:个人中心
  */
 import 'dart:ui';
@@ -12,12 +12,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'components/collection.dart';
+
 import 'components/drawerMenu.dart';
 import 'mycenter_logic.dart';
 import 'package:extended_sliver/extended_sliver.dart';
-import 'mycenter_state.dart';
 
 class MycenterPage extends StatelessWidget {
+  Key globalKey;
+  MycenterPage({this.globalKey});
+
   final MycenterLogic logic = Get.put(MycenterLogic());
 
   @override
@@ -36,18 +39,7 @@ class MycenterPage extends StatelessWidget {
                     "https://pic4.zhimg.com/v2-1fb998118e443cf3539def7aaee7da71_is.jpg"),
               ),
             ),
-            leading: InkWell(
-              onTap: () {
-                Scaffold.of(context).openDrawer();
-              },
-              child: Container(
-                padding: EdgeInsets.only(left: 10),
-                child: Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            leading: _leading(context),
             background: Container(
               width: double.maxFinite,
               height: ScreenUtil().setHeight(450),
@@ -66,10 +58,26 @@ class MycenterPage extends StatelessWidget {
             child: Container(
               color: Color(0xFF1A3445),
               height: ScreenUtil().setHeight(1200),
-              child: Collection(),
+              child: Collection(globalKey: globalKey),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _leading(context) {
+    return InkWell(
+      onTap: () {
+        Scaffold.of(context).openDrawer();
+        // _globalKey.currentState.openDrawer();
+      },
+      child: Container(
+        padding: EdgeInsets.only(left: 10),
+        child: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
       ),
     );
   }

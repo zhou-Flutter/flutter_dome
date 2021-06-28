@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-01 11:32:32
- * @LastEditTime: 2021-06-16 13:42:29
+ * @LastEditTime: 2021-06-26 11:18:21
  * @Description:  
  */
 import 'package:a_red_book/page/home/home_view.dart';
@@ -9,6 +9,7 @@ import 'package:a_red_book/page/mycenter/components/drawerMenu.dart';
 import 'package:a_red_book/page/mycenter/mycenter_view.dart';
 import 'package:a_red_book/page/news/news_view.dart';
 import 'package:a_red_book/page/shop/shop_view.dart';
+import 'package:a_red_book/page/video/video_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -26,6 +27,7 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage> {
   //控制器
   PersistentTabController _controller;
+  GlobalKey<ScaffoldState> globalKey = GlobalKey();
 
   @override
   void initState() {
@@ -37,13 +39,17 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     // 适配屏幕
     ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(750, 1334),
-        orientation: Orientation.portrait);
+      BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width,
+        maxHeight: MediaQuery.of(context).size.height,
+      ),
+      designSize: Size(750, 1334),
+      orientation: Orientation.portrait,
+    );
     return Scaffold(
+      key: globalKey,
       drawer: DrawerMenu(),
+      endDrawer: VideoPage(),
       body: PersistentTabView(
         context,
         controller: _controller,
@@ -81,11 +87,11 @@ class _IndexPageState extends State<IndexPage> {
 
   List<Widget> _buildScreens() {
     return [
-      HomePage(),
+      HomePage(globalKey: globalKey),
       ShopPage(),
       HomePage(),
       NewsPage(),
-      MycenterPage(),
+      MycenterPage(globalKey: globalKey),
     ];
   }
 

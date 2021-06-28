@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-04 14:03:36
- * @LastEditTime: 2021-06-16 09:32:35
+ * @LastEditTime: 2021-06-24 14:24:28
  * @Description: 
  */
 import 'package:a_red_book/page/shop/components/goods.dart';

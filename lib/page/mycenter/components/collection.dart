@@ -1,20 +1,26 @@
 /*
  * @Author: zxj
  * @Date: 2021-06-06 10:47:00
- * @LastEditTime: 2021-06-09 10:51:33
+ * @LastEditTime: 2021-06-28 18:58:25
  * @Description: 
  */
 
+import 'package:a_red_book/page/find/recommend/recommend_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Collection extends StatefulWidget {
+  Key globalKey;
+  Collection({this.globalKey});
+
   @override
-  _CollectionState createState() => _CollectionState();
+  _CollectionState createState() => _CollectionState(this.globalKey);
 }
 
 class _CollectionState extends State<Collection> with TickerProviderStateMixin {
   TabController mTabController;
+  Key globalKey;
+  _CollectionState(this.globalKey);
   List mTabList = [
     {"id": 1, "cname": "笔记"},
     {"id": 2, "cname": "收藏"},

@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-05-31 15:41:00
- * @LastEditTime: 2021-06-11 14:55:27
+ * @LastEditTime: 2021-06-26 13:44:51
  * @Description: 路由管理
  */
 import 'package:a_red_book/page/add_note/add_note_state.dart';
@@ -16,6 +16,8 @@ import 'package:a_red_book/page/mycenter/mycenter_state.dart';
 import 'package:a_red_book/page/mycenter/mycenter_view.dart';
 import 'package:a_red_book/page/news/news_state.dart';
 import 'package:a_red_book/page/news/news_view.dart';
+import 'package:a_red_book/page/record/record_state.dart';
+import 'package:a_red_book/page/record/record_view.dart';
 import 'package:a_red_book/page/shop/shop_state.dart';
 import 'package:a_red_book/page/shop/shop_view.dart';
 import 'package:a_red_book/page/splash_page/splash_page_state.dart';
@@ -80,6 +82,12 @@ abstract class AppPages {
       page: () => AddNotePage(),
       binding: AddNoteState(),
       transition: Transition.downToUp,
+    ),
+    GetPage(
+      name: Routes.recordPage,
+      page: () => RecordPage(),
+      binding: RecordState(),
+      transition: Transition.leftToRight,
     ),
   ];
 }

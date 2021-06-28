@@ -1,7 +1,7 @@
 /*
  * @Author: zxj
  * @Date: 2021-05-31 13:41:44
- * @LastEditTime: 2021-06-11 14:48:57
+ * @LastEditTime: 2021-06-24 10:59:52
  * @Description: 
  */
 /*
@@ -52,12 +52,4 @@ void main() {
       home: SplashPagePage(),
     ),
   );
-}
-
-//将关闭键盘的全局手势检测器
-void hideKeyboard(BuildContext context) {
-  FocusScopeNode currentFocus = FocusScope.of(context);
-  if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-    FocusManager.instance.primaryFocus.unfocus();
-  }
 }
