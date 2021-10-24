@@ -39,6 +39,7 @@ import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
+  //测试提交
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
