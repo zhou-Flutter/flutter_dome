@@ -5,6 +5,7 @@
  * @Description: 
  */
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -13,25 +14,46 @@ import 'follow_logic.dart';
 import 'follow_state.dart';
 
 class FollowPage extends StatelessWidget {
-  final FollowLogic logic = Get.put(FollowLogic());
+  final FollowLogic followLogic = Get.put(FollowLogic());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: [
-          _headImg(),
-          _noFollow(),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Text(
-              "为你推荐",
-              style: TextStyle(fontWeight: FontWeight.w600),
+    return Scaffold(
+      body: EasyRefresh.custom(
+        header: MaterialHeader(),
+        footer: ClassicalFooter(
+          extent: 30,
+          showInfo: false,
+          safeArea: false,
+          textColor: Colors.white,
+        ),
+        onRefresh: () async {
+          followLogic.getRecommend();
+        },
+        onLoad: () async {
+          followLogic.getMore();
+        },
+        slivers: [
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Container(
+                  child: GetBuilder<FollowLogic>(
+                    builder: (followLogic) => Container(
+                      child: Column(
+                        children: [
+                          _headImg(),
+                          _noFollow(),
+                          _recomFollow(followLogic.recommendAuthor),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+              childCount: 1,
             ),
           ),
-          _recomFollow(),
-          _recomFollow(),
-          _recomFollow(),
         ],
       ),
     );
@@ -90,108 +112,176 @@ class FollowPage extends StatelessWidget {
     );
   }
 
-  Widget _recomFollow() {
+  Widget _recomFollow(list) {
     return Container(
-      padding: EdgeInsets.all(5),
       child: Column(
-        children: [
-          ListTile(
-            leading: Container(
-              height: ScreenUtil().setHeight(70),
-              width: ScreenUtil().setWidth(70),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://pic4.zhimg.com/v2-1fb998118e443cf3539def7aaee7da71_is.jpg"),
-              ),
-            ),
-            title: Text("华仔测评"),
-            subtitle: Text(
-              "笔记·158 |推荐自数码科技",
-              style: TextStyle(color: Colors.black38),
-            ),
-            trailing: Container(
-              alignment: Alignment.center,
-              width: ScreenUtil().setWidth(100),
-              margin: EdgeInsets.only(top: 15, bottom: 15),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(width: 1, color: Colors.red)),
-              child: Text(
-                "关注",
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: ScreenUtil().setSp(20),
-                ),
-              ),
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            fit: BoxFit.cover,
-                            image:
-                                "https://img01.jituwang.com/170722/256853-1FH2102K755.jpg"),
+        children: list.map<Widget>((e) {
+          return Container(
+            padding: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Container(
+                    height: ScreenUtil().setHeight(70),
+                    width: ScreenUtil().setWidth(70),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage("${e["avatar"]}"),
+                    ),
+                  ),
+                  title: Text("${e["author"]}"),
+                  subtitle: Text(
+                    "${e["describe"]}",
+                    style: TextStyle(color: Colors.black38),
+                  ),
+                  trailing: Container(
+                    alignment: Alignment.center,
+                    width: ScreenUtil().setWidth(100),
+                    margin: EdgeInsets.only(top: 15, bottom: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        border: Border.all(width: 1, color: Colors.red)),
+                    child: Text(
+                      "关注",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: ScreenUtil().setSp(20),
                       ),
-                      Text("手机照片定位")
-                    ],
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            fit: BoxFit.cover,
-                            image:
-                                "https://img01.jituwang.com/170722/256853-1FH2102K755.jpg"),
+                Row(
+                  children: e["works"].map<Widget>((e) {
+                    return Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              child: FadeInImage.memoryNetwork(
+                                  placeholder: kTransparentImage,
+                                  fit: BoxFit.cover,
+                                  image: "${e["covers"]}"),
+                            ),
+                            Text("${e["describe"]}")
+                          ],
+                        ),
                       ),
-                      Text("手机照片定位")
-                    ],
-                  ),
+                    );
+                  }).toList(),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            fit: BoxFit.cover,
-                            image:
-                                "https://img01.jituwang.com/170722/256853-1FH2102K755.jpg"),
-                      ),
-                      Text(
-                        "手机照片定位测试机",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          );
+        }).toList(),
       ),
     );
   }
+
+  // Widget _recomFollow1() {
+  //   return Container(
+  //     padding: EdgeInsets.all(5),
+  //     child: Column(
+  //       children: [
+  //         ListTile(
+  //           leading: Container(
+  //             height: ScreenUtil().setHeight(70),
+  //             width: ScreenUtil().setWidth(70),
+  //             child: CircleAvatar(
+  //               backgroundImage: NetworkImage(
+  //                   "https://pic4.zhimg.com/v2-1fb998118e443cf3539def7aaee7da71_is.jpg"),
+  //             ),
+  //           ),
+  //           title: Text("华仔测评"),
+  //           subtitle: Text(
+  //             "笔记·158 |推荐自数码科技",
+  //             style: TextStyle(color: Colors.black38),
+  //           ),
+  //           trailing: Container(
+  //             alignment: Alignment.center,
+  //             width: ScreenUtil().setWidth(100),
+  //             margin: EdgeInsets.only(top: 15, bottom: 15),
+  //             decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.all(Radius.circular(20)),
+  //                 border: Border.all(width: 1, color: Colors.red)),
+  //             child: Text(
+  //               "关注",
+  //               style: TextStyle(
+  //                 color: Colors.red,
+  //                 fontSize: ScreenUtil().setSp(20),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Row(
+  //           children: [
+  //             Expanded(
+  //               child: Container(
+  //                 padding: EdgeInsets.all(5),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     ClipRRect(
+  //                       borderRadius: BorderRadius.all(Radius.circular(10)),
+  //                       child: FadeInImage.memoryNetwork(
+  //                           placeholder: kTransparentImage,
+  //                           fit: BoxFit.cover,
+  //                           image:
+  //                               "https://img01.jituwang.com/170722/256853-1FH2102K755.jpg"),
+  //                     ),
+  //                     Text("手机照片定位")
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //             Expanded(
+  //               child: Container(
+  //                 padding: EdgeInsets.all(5),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     ClipRRect(
+  //                       borderRadius: BorderRadius.all(Radius.circular(10)),
+  //                       child: FadeInImage.memoryNetwork(
+  //                           placeholder: kTransparentImage,
+  //                           fit: BoxFit.cover,
+  //                           image:
+  //                               "https://img01.jituwang.com/170722/256853-1FH2102K755.jpg"),
+  //                     ),
+  //                     Text("手机照片定位")
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //             Expanded(
+  //               child: Container(
+  //                 padding: EdgeInsets.all(5),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     ClipRRect(
+  //                       borderRadius: BorderRadius.all(Radius.circular(10)),
+  //                       child: FadeInImage.memoryNetwork(
+  //                           placeholder: kTransparentImage,
+  //                           fit: BoxFit.cover,
+  //                           image:
+  //                               "https://img01.jituwang.com/170722/256853-1FH2102K755.jpg"),
+  //                     ),
+  //                     Text(
+  //                       "手机照片定位测试机",
+  //                       maxLines: 1,
+  //                       overflow: TextOverflow.ellipsis,
+  //                     )
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

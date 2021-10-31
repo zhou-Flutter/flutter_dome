@@ -62,6 +62,7 @@ dependencies:
   extended_tabs: ^2.2.0
   #下拉刷新
   flutter_easyrefresh: ^2.2.1
+  
 
 
   # The following adds the Cupertino Icons font to your application.

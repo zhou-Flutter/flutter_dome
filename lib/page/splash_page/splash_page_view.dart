@@ -16,13 +16,6 @@ class SplashPagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 适配屏幕
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: Size(750, 1334),
-        orientation: Orientation.portrait);
     return Scaffold(
       body: Center(
           child: Column(

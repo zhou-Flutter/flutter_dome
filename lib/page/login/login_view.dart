@@ -26,9 +26,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+
     _controller = VideoPlayerController.asset('images/b2.mp4')
       ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
     _controller.play();
@@ -38,90 +38,89 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: ScreenUtil().setHeight(1335),
-            child: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
+      body: GetBuilder<LoginLogic>(
+        builder: (logic) => Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: ScreenUtil().setHeight(1335),
+              child: AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 0.0,
-            child: Column(
-              children: [
-                //电话号码
-                Text(
-                  "+86 15346983027",
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(35),
-                    color: Colors.white,
-                  ),
-                ),
-                //登录按钮
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  width: ScreenUtil().setHeight(500),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
-                      shape: MaterialStateProperty.all(StadiumBorder(
-                          side: BorderSide(color: Colors.black12))),
-                    ),
-                    child: Text(
-                      "同意协议并一点登录",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () {
-                      Get.offNamed("/indexPage");
-                    },
-                  ),
-                ),
-                qQWx(),
-                xieyi(),
-              ],
+            Positioned(
+              bottom: 0.0,
+              child: Column(
+                children: [
+                  login(),
+                  loginOther(logic.loginlist),
+                  xieyi(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget qQWx() {
+  //一键登录
+  Widget login() {
+    return Column(
+      children: [
+        //电话号码
+        Text(
+          "+86 15346983027",
+          style: TextStyle(
+            fontSize: ScreenUtil().setSp(35),
+            color: Colors.white,
+          ),
+        ),
+        //登录按钮
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          width: ScreenUtil().setHeight(500),
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.red),
+              shape: MaterialStateProperty.all(
+                  StadiumBorder(side: BorderSide(color: Colors.black12))),
+            ),
+            child: Text(
+              "同意协议并一点登录",
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
+              logic.toLogin();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget loginOther(item) {
     return Container(
       margin: EdgeInsets.only(top: 50),
       width: ScreenUtil().setHeight(550),
       child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: ScreenUtil().setHeight(60),
-              width: ScreenUtil().setWidth(60),
-              child: Image.asset("images/login_icon_welcome_qq_v3.png"),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              height: ScreenUtil().setHeight(60),
-              width: ScreenUtil().setWidth(60),
-              child: Image.asset("images/login_icon_welcome_weixin_v3.png"),
-            ),
-          ),
-          Expanded(
-              child: Container(
-            height: ScreenUtil().setHeight(60),
-            width: ScreenUtil().setWidth(60),
-            child: Image.asset("images/login_icon_welcome_phone_v3.png"),
-          )),
-          Expanded(
-              child: Container(
-            height: ScreenUtil().setHeight(60),
-            width: ScreenUtil().setWidth(60),
-            child: Image.asset("images/login_icon_welcome_weibo_v3.png"),
-          )),
-        ],
+        children: item.map<Widget>(
+          (e) {
+            return Expanded(
+              child: InkWell(
+                onTap: () {
+                  logic.toLoginOther(e["type"]);
+                },
+                child: Container(
+                  height: 60.h,
+                  width: 60.w,
+                  child: Image.asset(e["image"]),
+                ),
+              ),
+            );
+          },
+        ).toList(),
       ),
     );
   }
